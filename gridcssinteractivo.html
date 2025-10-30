@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa: CSS Grid - grid-column y grid-row</title>
+    <style>
+        :root {
+            --primary: #2196F3;
+            --secondary: #FF9800;
+            --accent: #F44336;
+            --dark: #333;
+            --light: #f5f5f5;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --info: #9C27B0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            margin: 20px 0;
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .grid-item {
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .grid-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Ejemplos de grid-column y grid-row */
+        .item1 {
+            grid-column: 1 / 3;
+            grid-row: 1;
+            background-color: var(--primary);
+        }
+        
+        .item2 {
+            grid-column: 3 / 5;
+            grid-row: 1 / 3;
+            background-color: var(--secondary);
+        }
+        
+        .item3 {
+            grid-column: 1;
+            grid-row: 2 / 4;
+            background-color: var(--accent);
+        }
+        
+        .item4 {
+            grid-column: 2 / 4;
+            grid-row: 3;
+            background-color: var(--info);
+        }
+        
+        .item5 {
+            grid-column: 4;
+            grid-row: 3;
+            background-color: var(--success);
+        }
+        
+        .code-example {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .prop-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .prop-table th, .prop-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .prop-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .prop-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .example-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        
+        .example {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            background-color: var(--light);
+            border-radius: 8px;
+        }
+        
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 80px);
+            gap: 8px;
+            margin: 15px 0;
+            background-color: #eaeaea;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .interactive-item {
+            background-color: var(--primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .interactive-item.selected {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #1976D2;
+        }
+        
+        .visual-guide {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 60px);
+            gap: 5px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .cell {
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+        
+        .line-number {
+            position: absolute;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .col-line {
+            top: -20px;
+        }
+        
+        .row-line {
+            left: -20px;
+        }
+        
+        .highlight {
+            background-color: rgba(255, 152, 0, 0.3);
+            border: 2px solid var(--secondary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .tip-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .example-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Guía Completa: CSS Grid</h1>
+            <p class="subtitle">Domina las propiedades grid-column y grid-row con ejemplos visuales, interactivos y explicaciones detalladas</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="introduccion">
+            <h2>Introducción a Grid Column y Grid Row</h2>
+            <p>Las propiedades <strong>grid-column</strong> y <strong>grid-row</strong> son fundamentales en CSS Grid Layout, ya que te permiten controlar la posición y el tamaño de los elementos dentro de una cuadrícula.</p>
+            
+            <div class="tip-box">
+                <p><strong>Tip:</strong> CSS Grid Layout es un sistema de diseño bidimensional que te permite crear diseños complejos y responsivos de manera fácil y mantenible.</p>
+            </div>
+            
+            <h3>¿Qué son estas propiedades?</h3>
+            <ul>
+                <li><strong>grid-column</strong>: Define en qué columnas de la cuadrícula se colocará un elemento.</li>
+                <li><strong>grid-row</strong>: Define en qué filas de la cuadrícula se colocará un elemento.</li>
+            </ul>
+            
+            <h3>Sintaxis básica</h3>
+            <div class="code-example">
+                <pre>
+.item {
+  grid-column: inicio / fin;
+  grid-row: inicio / fin;
+}</pre>
+            </div>
+        </section>
+        
+        <section id="ejemplo-visual">
+            <h2>Ejemplo Visual</h2>
+            <p>En este ejemplo, puedes ver cómo las propiedades grid-column y grid-row controlan la posición y tamaño de los elementos:</p>
+            
+            <div class="grid-container">
+                <div class="grid-item item1">
+                    <div>Item 1</div>
+                    <small>grid-column: 1 / 3</small>
+                    <small>grid-row: 1</small>
+                </div>
+                <div class="grid-item item2">
+                    <div>Item 2</div>
+                    <small>grid-column: 3 / 5</small>
+                    <small>grid-row: 1 / 3</small>
+                </div>
+                <div class="grid-item item3">
+                    <div>Item 3</div>
+                    <small>grid-column: 1</small>
+                    <small>grid-row: 2 / 4</small>
+                </div>
+                <div class="grid-item item4">
+                    <div>Item 4</div>
+                    <small>grid-column: 2 / 4</small>
+                    <small>grid-row: 3</small>
+                </div>
+                <div class="grid-item item5">
+                    <div>Item 5</div>
+                    <small>grid-column: 4</small>
+                    <small>grid-row: 3</small>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre>
+.item1 {
+  grid-column: 1 / 3;  /* Desde la línea 1 hasta la 3 */
+  grid-row: 1;         /* Solo la fila 1 */
+}
+
+.item2 {
+  grid-column: 3 / 5;  /* Desde la línea 3 hasta la 5 */
+  grid-row: 1 / 3;     /* Desde la línea 1 hasta la 3 */
+}
+
+.item3 {
+  grid-column: 1;      /* Solo la columna 1 (equivalente a 1 / 2) */
+  grid-row: 2 / 4;     /* Desde la línea 2 hasta la 4 */
+}
+
+.item4 {
+  grid-column: 2 / 4;  /* Desde la línea 2 hasta la 4 */
+  grid-row: 3;         /* Solo la fila 3 */
+}
+
+.item5 {
+  grid-column: 4;      /* Solo la columna 4 */
+  grid-row: 3;         /* Solo la fila 3 */
+}</pre>
+            </div>
+        </section>
+        
+        <section id="conceptos-clave">
+            <h2>Conceptos Clave</h2>
+            
+            <h3>Líneas de Cuadrícula</h3>
+            <p>Las líneas que forman la estructura de la cuadrícula se numeran empezando por 1. También puedes usar números negativos para contar desde el final.</p>
+            
+            <div class="visual-guide">
+                <!-- Líneas de columna -->
+                <span class="line-number col-line" style="left: 0;">1</span>
+                <span class="line-number col-line" style="left: 20%;">2</span>
+                <span class="line-number col-line" style="left: 40%;">3</span>
+                <span class="line-number col-line" style="left: 60%;">4</span>
+                <span class="line-number col-line" style="left: 80%;">5</span>
+                
+                <!-- Líneas de fila -->
+                <span class="line-number row-line" style="top: 0;">1</span>
+                <span class="line-number row-line" style="top: 25%;">2</span>
+                <span class="line-number row-line" style="top: 50%;">3</span>
+                <span class="line-number row-line" style="top: 75%;">4</span>
+                
+                <!-- Celdas -->
+                <div class="cell">1,1</div>
+                <div class="cell">2,1</div>
+                <div class="cell">3,1</div>
+                <div class="cell">4,1</div>
+                <div class="cell">5,1</div>
+                
+                <div class="cell">1,2</div>
+                <div class="cell">2,2</div>
+                <div class="cell highlight">3,2</div>
+                <div class="cell">4,2</div>
+                <div class="cell">5,2</div>
+                
+                <div class="cell">1,3</div>
+                <div class="cell">2,3</div>
+                <div class="cell">3,3</div>
+                <div class="cell">4,3</div>
+                <div class="cell">5,3</div>
+                
+                <div class="cell">1,4</div>
+                <div class="cell">2,4</div>
+                <div class="cell">3,4</div>
+                <div class="cell">4,4</div>
+                <div class="cell">5,4</div>
+            </div>
+            
+            <h3>Formas Alternativas de Especificar Valores</h3>
+            <table class="prop-table">
+                <thead>
+                    <tr>
+                        <th>Sintaxis</th>
+                        <th>Explicación</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>inicio / fin</td>
+                        <td>Especifica las líneas de inicio y fin</td>
+                        <td>grid-column: 2 / 4</td>
+                    </tr>
+                    <tr>
+                        <td>inicio / span valor</td>
+                        <td>Especifica la línea de inicio y cuántas celdas abarcar</td>
+                        <td>grid-row: 2 / span 3</td>
+                    </tr>
+                    <tr>
+                        <td>span valor / fin</td>
+                        <td>Especifica cuántas celdas abarcar y la línea de fin</td>
+                        <td>grid-column: span 2 / 5</td>
+                    </tr>
+                    <tr>
+                        <td>span valor</td>
+                        <td>Abarca un número específico de celdas desde la posición actual</td>
+                        <td>grid-row: span 2</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>Colocación automática según el algoritmo de grid</td>
+                        <td>grid-column: auto</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="zona-interactiva">
+            <h2>Zona Interactiva</h2>
+            <p>Selecciona un elemento y modifica sus propiedades grid-column y grid-row para ver los cambios en tiempo real:</p>
+            
+            <div class="interactive-grid" id="interactiveGrid">
+                <div class="interactive-item" data-id="1">1</div>
+                <div class="interactive-item" data-id="2">2</div>
+                <div class="interactive-item" data-id="3">3</div>
+                <div class="interactive-item" data-id="4">4</div>
+                <div class="interactive-item" data-id="5">5</div>
+                <div class="interactive-item" data-id="6">6</div>
+                <div class="interactive-item" data-id="7">7</div>
+                <div class="interactive-item" data-id="8">8</div>
+                <div class="interactive-item" data-id="9">9</div>
+                <div class="interactive-item" data-id="10">10</div>
+                <div class="interactive-item" data-id="11">11</div>
+                <div class="interactive-item" data-id="12">12</div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="selectedItem">Elemento seleccionado:</label>
+                    <select id="selectedItem">
+                        <option value="1">Elemento 1</option>
+                        <option value="2">Elemento 2</option>
+                        <option value="3">Elemento 3</option>
+                        <option value="4">Elemento 4</option>
+                        <option value="5">Elemento 5</option>
+                        <option value="6">Elemento 6</option>
+                        <option value="7">Elemento 7</option>
+                        <option value="8">Elemento 8</option>
+                        <option value="9">Elemento 9</option>
+                        <option value="10">Elemento 10</option>
+                        <option value="11">Elemento 11</option>
+                        <option value="12">Elemento 12</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="gridColumnStart">grid-column-start:</label>
+                    <select id="gridColumnStart">
+                        <option value="auto">auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="gridColumnEnd">grid-column-end:</label>
+                    <select id="gridColumnEnd">
+                        <option value="auto">auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="gridRowStart">grid-row-start:</label>
+                    <select id="gridRowStart">
+                        <option value="auto">auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="gridRowEnd">grid-row-end:</label>
+                    <select id="gridRowEnd">
+                        <option value="auto">auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="applyChanges">Aplicar Cambios</button>
+            
+            <div class="code-example" id="currentCode">
+                /* El código CSS aparecerá aquí */
+            </div>
+        </section>
+        
+        <section id="casos-uso">
+            <h2>Casos de Uso Comunes</h2>
+            
+            <div class="example-container">
+                <div class="example">
+                    <h3>Diseño de Cabecera</h3>
+                    <p>Crear una cabecera que ocupe todo el ancho:</p>
+                    <div class="code-example">
+                        <pre>
+.header {
+  grid-column: 1 / -1;  /* Desde la primera hasta la última línea */
+  grid-row: 1;
+}</pre>
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h3>Barra Lateral</h3>
+                    <p>Una barra lateral que ocupa varias filas:</p>
+                    <div class="code-example">
+                        <pre>
+.sidebar {
+  grid-column: 1;
+  grid-row: 2 / 5;  /* Desde la fila 2 hasta la 5 */
+}</pre>
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h3>Elemento que Abarca Múltiples Columnas</h3>
+                    <p>Un elemento destacado que ocupa dos columnas:</p>
+                    <div class="code-example">
+                        <pre>
+.featured {
+  grid-column: span 2;  /* Abarca 2 columnas */
+  grid-row: 3;
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="recursos">
+            <h2>Recursos Adicionales</h2>
+            <ul>
+                <li><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Grid_Layout" target="_blank">MDN Web Docs: CSS Grid Layout</a></li>
+                <li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">CSS Tricks: Una Guía Completa de Grid</a></li>
+                <li><a href="https://gridbyexample.com/" target="_blank">Grid by Example</a></li>
+                <li><a href="https://learncssgrid.com/" target="_blank">Learn CSS Grid</a></li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Guía Completa de CSS Grid - grid-column y grid-row</p>
+            <p>Creado para ayudarte a dominar el diseño con CSS Grid</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveItems = document.querySelectorAll('.interactive-item');
+            const selectedItemSelect = document.getElementById('selectedItem');
+            const gridColumnStart = document.getElementById('gridColumnStart');
+            const gridColumnEnd = document.getElementById('gridColumnEnd');
+            const gridRowStart = document.getElementById('gridRowStart');
+            const gridRowEnd = document.getElementById('gridRowEnd');
+            const applyButton = document.getElementById('applyChanges');
+            const currentCode = document.getElementById('currentCode');
+            
+            let selectedItem = document.querySelector('.interactive-item[data-id="1"]');
+            
+            // Seleccionar elemento al hacer clic
+            interactiveItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    selectedItem.classList.remove('selected');
+                    selectedItem = this;
+                    selectedItem.classList.add('selected');
+                    selectedItemSelect.value = this.getAttribute('data-id');
+                    updateFormValues();
+                });
+            });
+            
+            // Cambiar elemento seleccionado desde el select
+            selectedItemSelect.addEventListener('change', function() {
+                selectedItem.classList.remove('selected');
+                selectedItem = document.querySelector(`.interactive-item[data-id="${this.value}"]`);
+                selectedItem.classList.add('selected');
+                updateFormValues();
+            });
+            
+            // Aplicar cambios
+            applyButton.addEventListener('click', function() {
+                const colStart = gridColumnStart.value;
+                const colEnd = gridColumnEnd.value;
+                const rowStart = gridRowStart.value;
+                const rowEnd = gridRowEnd.value;
+                
+                let gridColumnValue = '';
+                let gridRowValue = '';
+                
+                if (colStart === 'auto' && colEnd === 'auto') {
+                    gridColumnValue = 'auto';
+                } else if (colStart === 'auto') {
+                    gridColumnValue = `auto / ${colEnd}`;
+                } else if (colEnd === 'auto') {
+                    gridColumnValue = colStart;
+                } else {
+                    gridColumnValue = `${colStart} / ${colEnd}`;
+                }
+                
+                if (rowStart === 'auto' && rowEnd === 'auto') {
+                    gridRowValue = 'auto';
+                } else if (rowStart === 'auto') {
+                    gridRowValue = `auto / ${rowEnd}`;
+                } else if (rowEnd === 'auto') {
+                    gridRowValue = rowStart;
+                } else {
+                    gridRowValue = `${rowStart} / ${rowEnd}`;
+                }
+                
+                selectedItem.style.gridColumn = gridColumnValue;
+                selectedItem.style.gridRow = gridRowValue;
+                
+                // Actualizar el código mostrado
+                currentCode.innerHTML = 
+`.item-${selectedItem.getAttribute('data-id')} {
+  grid-column: ${gridColumnValue};
+  grid-row: ${gridRowValue};
+}`;
+            });
+            
+            // Actualizar valores del formulario según el elemento seleccionado
+            function updateFormValues() {
+                const gridColumn = selectedItem.style.gridColumn || 'auto';
+                const gridRow = selectedItem.style.gridRow || 'auto';
+                
+                if (gridColumn === 'auto') {
+                    gridColumnStart.value = 'auto';
+                    gridColumnEnd.value = 'auto';
+                } else if (gridColumn.includes('/')) {
+                    const parts = gridColumn.split('/').map(part => part.trim());
+                    gridColumnStart.value = parts[0];
+                    gridColumnEnd.value = parts[1];
+                } else {
+                    gridColumnStart.value = gridColumn;
+                    gridColumnEnd.value = 'auto';
+                }
+                
+                if (gridRow === 'auto') {
+                    gridRowStart.value = 'auto';
+                    gridRowEnd.value = 'auto';
+                } else if (gridRow.includes('/')) {
+                    const parts = gridRow.split('/').map(part => part.trim());
+                    gridRowStart.value = parts[0];
+                    gridRowEnd.value = parts[1];
+                } else {
+                    gridRowStart.value = gridRow;
+                    gridRowEnd.value = 'auto';
+                }
+                
+                // Actualizar el código mostrado
+                currentCode.innerHTML = 
+`.item-${selectedItem.getAttribute('data-id')} {
+  grid-column: ${gridColumn};
+  grid-row: ${gridRow};
+}`;
+            }
+            
+            // Inicializar
+            selectedItem.classList.add('selected');
+            updateFormValues();
+        });
+    </script>
+</body>
+</html>

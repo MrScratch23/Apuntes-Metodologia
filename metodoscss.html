@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apuntes CSS - Explicación del Código</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 .icon {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin: 20px 0;
+            overflow-x: auto;
+            line-height: 1.8;
+            border: 1px solid #34495e;
+        }
+
+        .property {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .value {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .comment {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .selector {
+            color: #f39c12;
+        }
+
+        .example {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+
+        .tip {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .code-block {
+                font-size: 0.9rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Apuntes CSS - Explicación Completa</h1>
+            <p class="subtitle">Análisis detallado del código CSS proporcionado</p>
+        </header>
+
+        <!-- Variables CSS y Fuentes -->
+        <div class="section">
+            <h2>
+                <span class="icon">🎨</span>
+                Variables CSS y Fuentes Personalizadas
+            </h2>
+            
+            <div class="code-block">
+<span class="comment">/* Definición de fuentes personalizadas */</span>
+<span class="selector">@font-face</span> {
+    <span class="property">font-family</span>: <span class="value">"Alan Sans"</span>;
+    <span class="property">src</span>: <span class="value">url(Alan_Sans/AlanSans-VariableFont_wght.ttf)</span>;
+}
+
+<span class="comment">/* Variables CSS (Custom Properties) */</span>
+<span class="selector">:root</span> {
+    <span class="property">--color-fondo</span>: <span class="value">#F5F7FF</span>;
+    <span class="property">--color-fondonavegacion</span>: <span class="value">rgba(1, 37, 125)</span>;
+    <span class="property">--color-footer</span>: <span class="value">#2272FF</span>;
+}
+            </div>
+
+            <div class="note">
+                💡 <strong>Variables CSS:</strong> Permiten reutilizar valores en todo el código. Se definen en <strong>:root</strong> para acceso global.
+            </div>
+
+            <div class="tip">
+                ✅ <strong>Ventaja:</strong> Si cambias el color en la variable, se actualiza automáticamente en todos los lugares donde se use.
+            </div>
+        </div>
+
+        <!-- Grid Layout Principal -->
+        <div class="section">
+            <h2>
+                <span class="icon">📐</span>
+                Grid Layout - Estructura Principal
+            </h2>
+            
+            <div class="code-block">
+<span class="selector">body</span> {
+    <span class="property">display</span>: <span class="value">grid</span>;
+    <span class="property">grid-template-columns</span>: <span class="value">0.3fr 1fr</span>;
+    <span class="property">grid-template-rows</span>: <span class="value">1fr 1fr</span>;
+    <span class="property">grid-template-areas</span>:
+        <span class="value">"header header"</span>
+        <span class="value">"nav nav"</span>
+        <span class="value">"aside main"</span>
+        <span class="value">"footer footer"</span>;
+}
+            </div>
+
+            <h3>Explicación del Grid:</h3>
+            <ul>
+                <li><strong>grid-template-columns: 0.3fr 1fr</strong> - Dos columnas (30% y 70%)</li>
+                <li><strong>grid-template-areas</strong> - Define áreas con nombres semánticos</li>
+                <li><strong>"header header"</strong> - Header ocupa ambas columnas</li>
+                <li><strong>"aside main"</strong> - Aside en columna 1, Main en columna 2</li>
+            </ul>
+
+            <div class="example">
+                <strong>Visualización del Layout:</strong><br>
+                ┌───────────────────┐<br>
+                │      HEADER       │ ← Ocupa 2 columnas<br>
+                ├───────────────────┤<br>
+                │        NAV        │ ← Ocupa 2 columnas<br>
+                ├───────┬───────────┤<br>
+                │ ASIDE │   MAIN    │ ← Aside (30%), Main (70%)<br>
+                ├───────┴───────────┤<br>
+                │      FOOTER       │ ← Ocupa 2 columnas<br>
+                └───────────────────┘
+            </div>
+        </div>
+
+        <!-- Position Sticky y Fixed -->
+        <div class="section">
+            <h2>
+                <span class="icon">📍</span>
+                Position Sticky y Fixed - Navegación Pegajosa
+            </h2>
+            
+            <div class="code-block">
+<span class="comment">/* Header sticky - Se pega al hacer scroll */</span>
+<span class="selector">header</span> {
+    <span class="property">position</span>: <span class="value">sticky</span>;
+    <span class="property">top</span>: <span class="value">0px</span>;
+    <span class="property">z-index</span>: <span class="value">11</span>;
+}
+
+<span class="comment">/* Nav fixed - Siempre visible */</span>
+<span class="selector">nav</span> {
+    <span class="property">position</span>: <span class="value">fixed</span>;
+    <span class="property">top</span>: <span class="value">80px</span>; <span class="comment">/* Justo debajo del header */</span>
+    <span class="property">z-index</span>: <span class="value">10</span>;
+}
+            </div>
+
+            <div class="note">
+                💡 <strong>Diferencia:</strong> 
+                <strong>sticky</strong> se comporta como relative hasta llegar al top, luego se vuelve fixed.
+                <strong>fixed</strong> siempre está fijo en la ventana.
+            </div>
+
+            <div class="tip">
+                ✅ <strong>z-index:</strong> Controla el orden de apilamiento. Mayor número = más al frente.
+            </div>
+        </div>
+
+        <!-- Flexbox para Alineación -->
+        <div class="section">
+            <h2>
+                <span class="icon">🎯</span>
+                Flexbox - Alineación y Distribución
+            </h2>
+            
+            <div class="code-block">
+<span class="comment">/* Centrado perfecto con Flexbox */</span>
+<span class="selector">header</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">align-items</span>: <span class="value">center</span>;
+    <span class="property">justify-content</span>: <span class="value">center</span>;
+}
+
+<span class="comment">/* Navegación horizontal */</span>
+<span class="selector">nav ul</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">gap</span>: <span class="value">40px</span>;
+}
+            </div>
+
+            <h3>Propiedades Flexbox usadas:</h3>
+            <ul>
+                <li><strong>display: flex</strong> - Activa flexbox</li>
+                <li><strong>align-items: center</strong> - Centra verticalmente</li>
+                <li><strong>justify-content: center</strong> - Centra horizontalmente</li>
+                <li><strong>gap: 40px</strong> - Espacio entre elementos</li>
+            </ul>
+        </div>
+
+        <!-- Grid para Productos -->
+        <div class="section">
+            <h2>
+                <span class="icon">🛍️</span>
+                Grid para Cartas de Productos
+            </h2>
+            
+            <div class="code-block">
+<span class="selector">.cartas</span> {
+    <span class="property">display</span>: <span class="value">grid</span>;
+    <span class="property">grid-template-columns</span>: <span class="value">repeat(3, 1fr)</span>;
+    <span class="property">gap</span>: <span class="value">32px</span>;
+}
+
+<span class="comment">/* Estilos diferentes para pares e impares */</span>
+<span class="selector">.cartaproducto:nth-child(odd)</span> {
+    <span class="property">border</span>: <span class="value">3px solid #FF6B6B</span>;
+    <span class="property">box-shadow</span>: <span class="value">4px 4px 16px rgba(255, 107, 107, 0.6)</span>;
+}
+
+<span class="selector">.cartaproducto:nth-child(even)</span> {
+    <span class="property">border</span>: <span class="value">3px solid #64FFDA</span>;
+    <span class="property">box-shadow</span>: <span class="value">4px 4px 16px rgba(100, 255, 218, 0.6)</span>;
+}
+            </div>
+
+            <div class="tip">
+                ✅ <strong>repeat(3, 1fr)</strong> crea 3 columnas del mismo tamaño (1 fracción cada una).
+            </div>
+
+            <div class="note">
+                💡 <strong>nth-child(odd/even):</strong> Selectores que apuntan a elementos pares o impares, perfecto para crear patrones de colores.
+            </div>
+        </div>
+
+        <!-- Efectos y Transiciones -->
+        <div class="section">
+            <h2>
+                <span class="icon">✨</span>
+                Efectos y Transiciones
+            </h2>
+            
+            <div class="code-block">
+<span class="comment">/* Efecto hover en enlaces */</span>
+<span class="selector">nav ul li a</span> {
+    <span class="property">transition</span>: <span class="value">color 0.3s ease</span>;
+}
+
+<span class="selector">nav ul li a:hover</span> {
+    <span class="property">color</span>: <span class="value">coral</span>;
+}
+
+<span class="comment">/* Efecto active en imágenes */</span>
+<span class="selector">.imagen-contenedor img:active</span> {
+    <span class="property">filter</span>: <span class="value">sepia()</span>;
+}
+
+<span class="comment">/* Mostrar información al hover */</span>
+<span class="selector">.info-promocion</span> {
+    <span class="property">display</span>: <span class="value">none</span>;
+}
+
+<span class="selector">.imagen-contenedor:hover .info-promocion</span> {
+    <span class="property">display</span>: <span class="value">block</span>;
+}
+            </div>
+
+            <h3>Pseudo-clases usadas:</h3>
+            <ul>
+                <li><strong>:hover</strong> - Cuando el mouse pasa por encima</li>
+                <li><strong>:active</strong> - Cuando el elemento está siendo clickeado</li>
+                <li><strong>:nth-child()</strong> - Para elementos específicos en una lista</li>
+            </ul>
+        </div>
+
+        <!-- Diseño Responsivo -->
+        <div class="section">
+            <h2>
+                <span class="icon">📱</span>
+                Diseño Responsivo - Media Queries
+            </h2>
+            
+            <div class="code-block">
+<span class="selector">@media (max-width: 576px)</span> {
+    <span class="selector">body</span> {
+        <span class="property">grid-template-columns</span>: <span class="value">1fr</span>;
+        <span class="property">grid-template-areas</span>:
+            <span class="value">"header"</span>
+            <span class="value">"nav"</span>
+            <span class="value">"main"</span>
+            <span class="value">"aside"</span>
+            <span class="value">"footer"</span>;
+    }
+    
+    <span class="selector">.cartas</span> {
+        <span class="property">grid-template-columns</span>: <span class="value">1fr</span>;
+    }
+    
+    <span class="comment">/* Menú hamburguesa */</span>
+    <span class="selector">.burgesasinpatatas</span> {
+        <span class="property">display</span>: <span class="value">block</span>;
+    }
+}
+            </div>
+
+            <div class="note">
+                💡 <strong>Mobile First:</strong> El diseño se adapta a pantallas pequeñas cambiando el grid a una sola columna.
+            </div>
+
+            <h3>Características del menú hamburguesa:</h3>
+            <ul>
+                <li><strong>display: none</strong> - Oculto en desktop</li>
+                <li><strong>display: block</strong> - Visible en móvil</li>
+                <li><strong>flex-direction: column</strong> - Menú vertical en móvil</li>
+            </ul>
+        </div>
+
+        <!-- Tablas y Columnas -->
+        <div class="section">
+            <h2>
+                <span class="icon">📊</span>
+                Tablas y Columnas CSS
+            </h2>
+            
+            <div class="code-block">
+<span class="comment">/* Diseño de columnas para el aside */</span>
+<span class="selector">aside .sostenibilidad</span> {
+    <span class="property">column-count</span>: <span class="value">2</span>;
+    <span class="property">column-gap</span>: <span class="value">30px</span>;
+}
+
+<span class="comment">/* Estilos de tabla */</span>
+<span class="selector">.tabla-productos</span> {
+    <span class="property">border-collapse</span>: <span class="value">collapse</span>;
+    <span class="property">border-radius</span>: <span class="value">12px</span>;
+}
+
+<span class="selector">.tabla-productos tr:hover</span> {
+    <span class="property">background</span>: <span class="value">#333</span>;
+}
+            </div>
+
+            <div class="tip">
+                ✅ <strong>border-collapse: collapse</strong> elimina el espacio entre bordes de tabla, creando líneas continuas.
+            </div>
+        </div>
+
+        <!-- Conceptos CSS Avanzados -->
+        <div class="section">
+            <h2>
+                <span class="icon">⚡</span>
+                Conceptos CSS Avanzados Usados
+            </h2>
+            
+            <h3>1. Especificidad y Herencia</h3>
+            <ul>
+                <li><strong>Variables CSS</strong> para mantenimiento fácil</li>
+                <li><strong>Selectores descendientes</strong> como `.imagen-contenedor:hover .info-promocion`</li>
+                <li><strong>!important implícito</strong> a través de especificidad</li>
+            </ul>
+
+            <h3>2. Modelo de Caja</h3>
+            <ul>
+                <li><strong>box-sizing: border-box</strong> incluido globalmente</li>
+                <li><strong>padding, margin, border</strong> para espaciado</li>
+                <li><strong>border-radius</strong> para esquinas redondeadas</li>
+            </ul>
+
+            <h3>3. Unidades de Medida</h3>
+            <ul>
+                <li><strong>px</strong> - Para valores fijos</li>
+                <li><strong>%</strong> - Para dimensiones relativas</li>
+                <li><strong>fr</strong> - Unidades de grid</li>
+                <li><strong>vh/vw</strong> - Viewport height/width</li>
+                <li><strong>rem/em</strong> - Para tipografía responsive</li>
+            </ul>
+
+            <div class="note">
+                🎯 <strong>Conclusión:</strong> Este código demuestra un uso avanzado de CSS Grid, Flexbox, variables, y diseño responsive, siguiendo las mejores prácticas modernas.
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 Apuntes CSS - Análisis completo de técnicas y propiedades utilizadas</p>
+        </footer>
+    </div>
+</body>
+</html>
