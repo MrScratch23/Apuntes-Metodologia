@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Propiedades CSS</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --purple: #9b59b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: var(--light);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+        }
+        
+        .property-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .property-name {
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .property-description {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .example-container {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .example-box {
+            width: 150px;
+            height: 150px;
+            background: var(--primary);
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+        }
+        
+        .value-display {
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+        
+        .code-example {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .comparison-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .comparison-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .position-demo {
+            position: relative;
+            height: 300px;
+            background: #f8f9fa;
+            border: 2px dashed #bdc3c7;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .demo-element {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        
+        .positioned {
+            position: absolute;
+            background: var(--accent);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía Completa de Propiedades CSS</h1>
+            <p class="subtitle">Aprende las propiedades CSS más importantes con ejemplos interactivos</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab active" data-target="position">Position</button>
+            <button class="tab" data-target="display">Display</button>
+            <button class="tab" data-target="box-model">Box Model</button>
+            <button class="tab" data-target="flexbox">Flexbox</button>
+            <button class="tab" data-target="grid">Grid</button>
+            <button class="tab" data-target="transform">Transform</button>
+        </div>
+        
+        <!-- SECCIÓN POSITION -->
+        <section id="position" class="content-section active">
+            <h2>Propiedad Position</h2>
+            <p>La propiedad position especifica el método de posicionamiento para un elemento.</p>
+            
+            <div class="property-card">
+                <div class="property-name">static</div>
+                <div class="property-description">Valor por defecto. El elemento se posiciona según el flujo normal del documento.</div>
+                <div class="example-container">
+                    <div class="example-box" style="position: static;">static</div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">relative</div>
+                <div class="property-description">Se posiciona relative a su posición normal. Se puede ajustar con top, right, bottom, left.</div>
+                <div class="example-container">
+                    <div class="example-box" style="position: relative; top: 20px; left: 30px;">relative</div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">absolute</div>
+                <div class="property-description">Se posiciona relative al ancestro posicionado más cercano (no static).</div>
+                <div class="position-demo">
+                    <div class="demo-element positioned" style="top: 50px; left: 50px;">absolute</div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">fixed</div>
+                <div class="property-description">Se posiciona relative a la ventana del navegador. Permanece fijo al hacer scroll.</div>
+                <div class="example-container">
+                    <div class="example-box" style="position: fixed; bottom: 20px; right: 20px; width: 100px; height: 60px; z-index: 1000;">fixed</div>
+                    <p>Este elemento está posicionado fixed en la esquina inferior derecha.</p>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">sticky</div>
+                <div class="property-description">Se comporta como relative hasta que cruza un punto específico, entonces se comporta como fixed.</div>
+                <div class="example-container" style="height: 200px; overflow-y: scroll;">
+                    <div style="height: 100px; background: #34495e;"></div>
+                    <div class="example-box" style="position: sticky; top: 0; background: var(--warning);">sticky</div>
+                    <div style="height: 400px; background: #16a085;"></div>
+                </div>
+            </div>
+            
+            <h3>Propiedades relacionadas: top, right, bottom, left</h3>
+            <div class="interactive-controls">
+                <div class="control-group">
+                    <label for="topValue">top:</label>
+                    <input type="range" id="topValue" min="0" max="100" value="0">
+                    <div class="value-display" id="topDisplay">0px</div>
+                </div>
+                <div class="control-group">
+                    <label for="leftValue">left:</label>
+                    <input type="range" id="leftValue" min="0" max="100" value="0">
+                    <div class="value-display" id="leftDisplay">0px</div>
+                </div>
+            </div>
+            
+            <div class="position-demo">
+                <div class="demo-element positioned" id="interactivePosition" style="top: 0; left: 0;">¡Pruébame!</div>
+            </div>
+            
+            <div class="code-example">
+#interactivePosition {<br>
+  position: absolute;<br>
+  top: <span id="codeTop">0</span>px;<br>
+  left: <span id="codeLeft">0</span>px;<br>
+}
+            </div>
+        </section>
+        
+        <!-- SECCIÓN DISPLAY -->
+        <section id="display" class="content-section">
+            <h2>Propiedad Display</h2>
+            <p>La propiedad display especifica el tipo de caja de visualización para un elemento.</p>
+            
+            <div class="comparison-container">
+                <div class="comparison-box">
+                    <h3>block</h3>
+                    <p>Ocupa todo el ancho disponible y comienza en una nueva línea.</p>
+                    <div style="background: var(--primary); color: white; padding: 10px; margin: 5px 0;">Elemento block</div>
+                    <div style="background: var(--secondary); color: white; padding: 10px; margin: 5px 0;">Elemento block</div>
+                </div>
+                
+                <div class="comparison-box">
+                    <h3>inline</h3>
+                    <p>Solo ocupa el espacio necesario y no fuerza saltos de línea.</p>
+                    <div>
+                        <span style="background: var(--primary); color: white; padding: 10px;">Elemento inline</span>
+                        <span style="background: var(--secondary); color: white; padding: 10px;">Elemento inline</span>
+                    </div>
+                </div>
+                
+                <div class="comparison-box">
+                    <h3>inline-block</h3>
+                    <p>Como inline pero permite dimensiones (width/height).</p>
+                    <div>
+                        <span style="display: inline-block; background: var(--primary); color: white; padding: 10px; width: 100px;">inline-block</span>
+                        <span style="display: inline-block; background: var(--secondary); color: white; padding: 10px; width: 120px;">inline-block</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">none</div>
+                <div class="property-description">El elemento se oculta completamente y no ocupa espacio en el diseño.</div>
+                <button id="toggleDisplay">Mostrar/Ocultar elemento</button>
+                <div id="toggleExample" style="background: var(--accent); color: white; padding: 20px; margin-top: 10px; border-radius: 5px;">
+                    Este elemento puede mostrarse u ocultarse
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">flex</div>
+                <div class="property-description">Establece un contenedor flex que permite un diseño flexible de sus hijos.</div>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <div style="flex: 1; background: var(--primary); color: white; padding: 15px; text-align: center;">Flex 1</div>
+                    <div style="flex: 2; background: var(--secondary); color: white; padding: 15px; text-align: center;">Flex 2</div>
+                    <div style="flex: 1; background: var(--accent); color: white; padding: 15px; text-align: center;">Flex 1</div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-name">grid</div>
+                <div class="property-description">Establece un contenedor grid que permite un diseño basado en cuadrícula.</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px;">
+                    <div style="background: var(--primary); color: white; padding: 15px; text-align: center;">Grid Item</div>
+                    <div style="background: var(--secondary); color: white; padding: 15px; text-align: center;">Grid Item</div>
+                    <div style="background: var(--accent); color: white; padding: 15px; text-align: center;">Grid Item</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN BOX MODEL -->
+        <section id="box-model" class="content-section">
+            <h2>Box Model (Modelo de Caja)</h2>
+            <p>El modelo de caja CSS es fundamental para el diseño. Cada elemento es representado como una caja rectangular con:</p>
+            
+            <div style="text-align: center; margin: 25px 0;">
+                <div style="display: inline-block; position: relative;">
+                    <!-- Contenido -->
+                    <div style="width: 200px; height: 100px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                        Content
+                    </div>
+                    <!-- Padding -->
+                    <div style="position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; border: 20px solid rgba(46, 204, 113, 0.5); pointer-events: none;">
+                        <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: var(--secondary); color: white; padding: 2px 8px; border-radius: 3px; font-size: 0.8rem;">
+                            Padding
+                        </div>
+                    </div>
+                    <!-- Border -->
+                    <div style="position: absolute; top: -30px; left: -30px; right: -30px; bottom: -30px; border: 10px solid rgba(231, 76, 60, 0.5); pointer-events: none;">
+                        <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 2px 8px; border-radius: 3px; font-size: 0.8rem;">
+                            Border
+                        </div>
+                    </div>
+                    <!-- Margin -->
+                    <div style="position: absolute; top: -50px; left: -50px; right: -50px; bottom: -50px; border: 20px dashed rgba(155, 89, 182, 0.5); pointer-events: none;">
+                        <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: var(--purple); color: white; padding: 2px 8px; border-radius: 3px; font-size: 0.8rem;">
+                            Margin
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-controls">
+                <div class="control-group">
+                    <label for="marginValue">margin:</label>
+                    <input type="range" id="marginValue" min="0" max="50" value="10">
+                    <div class="value-display" id="marginDisplay">10px</div>
+                </div>
+                <div class="control-group">
+                    <label for="paddingValue">padding:</label>
+                    <input type="range" id="paddingValue" min="0" max="50" value="10">
+                    <div class="value-display" id="paddingDisplay">10px</div>
+                </div>
+                <div class="control-group">
+                    <label for="borderValue">border-width:</label>
+                    <input type="range" id="borderValue" min="0" max="20" value="5">
+                    <div class="value-display" id="borderDisplay">5px</div>
+                </div>
+            </div>
+            
+            <div class="example-container" style="text-align: center;">
+                <div id="boxModelDemo" style="background: var(--primary); color: white; display: inline-block; width: 200px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                    ¡Pruébalo!
+                </div>
+            </div>
+            
+            <div class="code-example">
+#boxModelDemo {<br>
+  margin: <span id="codeMargin">10</span>px;<br>
+  padding: <span id="codePadding">10</span>px;<br>
+  border: <span id="codeBorder">5</span>px solid #ccc;<br>
+  background: #3498db;<br>
+  width: 200px;<br>
+  height: 100px;<br>
+}
+            </div>
+            
+            <h3>box-sizing</h3>
+            <div class="property-card">
+                <div class="property-name">content-box (valor por defecto)</div>
+                <div class="property-description">El width y height solo incluyen el contenido. Padding y border se añaden al ancho total.</div>
+                
+                <div class="property-name">border-box</div>
+                <div class="property-description">El width y height incluyen contenido, padding y border. El tamaño total es el especificado.</div>
+                
+                <div class="comparison-container">
+                    <div class="comparison-box">
+                        <h4>content-box</h4>
+                        <div style="box-sizing: content-box; width: 200px; padding: 20px; border: 5px solid var(--primary); background: var(--light); margin: 0 auto;">
+                            Ancho total: 200 + 40 + 10 = 250px
+                        </div>
+                    </div>
+                    <div class="comparison-box">
+                        <h4>border-box</h4>
+                        <div style="box-sizing: border-box; width: 200px; padding: 20px; border: 5px solid var(--secondary); background: var(--light); margin: 0 auto;">
+                            Ancho total: 200px (incluye padding y border)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- OTRAS SECCIONES (Flexbox, Grid, Transform) -->
+        <section id="flexbox" class="content-section">
+            <h2>Flexbox</h2>
+            <p>Flexbox es un modelo de diseño unidimensional para distribuir espacio entre elementos.</p>
+            <div class="code-example">
+.container {<br>
+  display: flex;<br>
+  justify-content: center;  /* Alineación horizontal */<br>
+  align-items: center;      /* Alineación vertical */<br>
+  flex-direction: row;      /* Dirección de los elementos */<br>
+}
+            </div>
+            <p>Más detalles sobre Flexbox en otra guía específica.</p>
+        </section>
+        
+        <section id="grid" class="content-section">
+            <h2>CSS Grid</h2>
+            <p>CSS Grid es un sistema de diseño bidimensional para crear diseños complejos.</p>
+            <div class="code-example">
+.container {<br>
+  display: grid;<br>
+  grid-template-columns: 1fr 1fr 1fr;  /* Tres columnas de igual ancho */<br>
+  grid-template-rows: 100px auto;      /* Dos filas */<br>
+  gap: 10px;                           /* Espacio entre celdas */<br>
+}
+            </div>
+            <p>Revisa nuestra guía específica de Grid para más detalles.</p>
+        </section>
+        
+        <section id="transform" class="content-section">
+            <h2>Transform</h2>
+            <p>La propiedad transform aplica transformaciones 2D o 3D a un elemento.</p>
+            
+            <div class="interactive-controls">
+                <div class="control-group">
+                    <label for="rotateValue">rotate:</label>
+                    <input type="range" id="rotateValue" min="0" max="360" value="0">
+                    <div class="value-display" id="rotateDisplay">0deg</div>
+                </div>
+                <div class="control-group">
+                    <label for="scaleValue">scale:</label>
+                    <input type="range" id="scaleValue" min="50" max="150" value="100" step="10">
+                    <div class="value-display" id="scaleDisplay">1.0</div>
+                </div>
+                <div class="control-group">
+                    <label for="translateXValue">translateX:</label>
+                    <input type="range" id="translateXValue" min="-50" max="50" value="0">
+                    <div class="value-display" id="translateXDisplay">0px</div>
+                </div>
+            </div>
+            
+            <div class="example-container" style="text-align: center;">
+                <div id="transformDemo" class="example-box" style="background: var(--purple);">
+                  Transformaciones
+                </div>
+            </div>
+            
+            <div class="code-example">
+#transformDemo {<br>
+  transform: <br>
+    rotate(<span id="codeRotate">0</span>deg)<br>
+    scale(<span id="codeScale">1</span>)<br>
+    translateX(<span id="codeTranslateX">0</span>px);<br>
+}
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Guía Completa de Propiedades CSS - Aprende practicando</p>
+    </footer>
+
+    <script>
+        // Navegación por pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remover clase active de todas las pestañas y secciones
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                
+                // Añadir clase active a la pestaña clickeada
+                this.classList.add('active');
+                
+                // Mostrar la sección correspondiente
+                const target = this.getAttribute('data-target');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+        
+        // Controles interactivos para Position
+        const topSlider = document.getElementById('topValue');
+        const leftSlider = document.getElementById('leftValue');
+        const topDisplay = document.getElementById('topDisplay');
+        const leftDisplay = document.getElementById('leftDisplay');
+        const interactivePosition = document.getElementById('interactivePosition');
+        const codeTop = document.getElementById('codeTop');
+        const codeLeft = document.getElementById('codeLeft');
+        
+        topSlider.addEventListener('input', function() {
+            const value = this.value + 'px';
+            topDisplay.textContent = value;
+            interactivePosition.style.top = value;
+            codeTop.textContent = this.value;
+        });
+        
+        leftSlider.addEventListener('input', function() {
+            const value = this.value + 'px';
+            leftDisplay.textContent = value;
+            interactivePosition.style.left = value;
+            codeLeft.textContent = this.value;
+        });
+        
+        // Controles interactivos para Box Model
+        const marginSlider = document.getElementById('marginValue');
+        const paddingSlider = document.getElementById('paddingValue');
+        const borderSlider = document.getElementById('borderValue');
+        const marginDisplay = document.getElementById('marginDisplay');
+        const paddingDisplay = document.getElementById('paddingDisplay');
+        const borderDisplay = document.getElementById('borderDisplay');
+        const boxModelDemo = document.getElementById('boxModelDemo');
+        const codeMargin = document.getElementById('codeMargin');
+        const codePadding = document.getElementById('codePadding');
+        const codeBorder = document.getElementById('codeBorder');
+        
+        marginSlider.addEventListener('input', function() {
+            const value = this.value + 'px';
+            marginDisplay.textContent = value;
+            boxModelDemo.style.margin = value;
+            codeMargin.textContent = this.value;
+        });
+        
+        paddingSlider.addEventListener('input', function() {
+            const value = this.value + 'px';
+            paddingDisplay.textContent = value;
+            boxModelDemo.style.padding = value;
+            codePadding.textContent = this.value;
+        });
+        
+        borderSlider.addEventListener('input', function() {
+            const value = this.value + 'px';
+            borderDisplay.textContent = value;
+            boxModelDemo.style.border = value + ' solid #ccc';
+            codeBorder.textContent = this.value;
+        });
+        
+        // Controles interactivos para Transform
+        const rotateSlider = document.getElementById('rotateValue');
+        const scaleSlider = document.getElementById('scaleValue');
+        const translateXSlider = document.getElementById('translateXValue');
+        const rotateDisplay = document.getElementById('rotateDisplay');
+        const scaleDisplay = document.getElementById('scaleDisplay');
+        const translateXDisplay = document.getElementById('translateXDisplay');
+        const transformDemo = document.getElementById('transformDemo');
+        const codeRotate = document.getElementById('codeRotate');
+        const codeScale = document.getElementById('codeScale');
+        const codeTranslateX = document.getElementById('codeTranslateX');
+        
+        rotateSlider.addEventListener('input', function() {
+            const value = this.value + 'deg';
+            rotateDisplay.textContent = value;
+            updateTransform();
+            codeRotate.textContent = this.value;
+        });
+        
+        scaleSlider.addEventListener('input', function() {
+            const value = (this.value / 100).toFixed(1);
+            scaleDisplay.textContent = value;
+            updateTransform();
+            codeScale.textContent = value;
+        });
+        
+        translateXSlider.addEventListener('input', function() {
+            const value = this.value + 'px';
+            translateXDisplay.textContent = value;
+            updateTransform();
+            codeTranslateX.textContent = this.value;
+        });
+        
+        function updateTransform() {
+            const rotate = rotateSlider.value + 'deg';
+            const scale = (scaleSlider.value / 100).toFixed(1);
+            const translateX = translateXSlider.value + 'px';
+            
+            transformDemo.style.transform = `rotate(${rotate}) scale(${scale}) translateX(${translateX})`;
+        }
+        
+        // Toggle para display none
+        const toggleButton = document.getElementById('toggleDisplay');
+        const toggleExample = document.getElementById('toggleExample');
+        
+        toggleButton.addEventListener('click', function() {
+            if (toggleExample.style.display === 'none') {
+                toggleExample.style.display = 'block';
+            } else {
+                toggleExample.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
