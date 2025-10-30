@@ -1,0 +1,473 @@
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métodos de Arrays en PHP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .method {
+            background: #f8f9fa;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .method-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .method-description {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .method-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            margin-top: 5px;
+        }
+
+        .creation { border-left-color: #e74c3c; }
+        .modification { border-left-color: #9b59b6; }
+        .search { border-left-color: #f39c12; }
+        .iteration { border-left-color: #3498db; }
+        .sorting { border-left-color: #1abc9c; }
+        .utility { border-left-color: #e67e22; }
+
+        .array-display {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .php-tag {
+            color: #8892BF;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐘 Arrays en PHP</h1>
+            <p class="subtitle">Guía completa de funciones para trabajar con arrays</p>
+        </header>
+
+        <div class="grid">
+            <!-- Creación y Construcción -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🆕</div>
+                    <h2>Creación y Construcción</h2>
+                </div>
+                
+                <div class="method creation">
+                    <div class="method-name">array() o []</div>
+                    <div class="method-description">Crear un nuevo array</div>
+                    <div class="array-display">-</div>
+                    <div class="method-example"><span class="php-tag">$frutas</span> = array("manzana", "naranja", "plátano");
+<span class="php-tag">$numeros</span> = [1, 2, 3, 4, 5];</div>
+                </div>
+
+                <div class="method creation">
+                    <div class="method-name">range()</div>
+                    <div class="method-description">Crear array con rango de valores</div>
+                    <div class="array-display">-</div>
+                    <div class="method-example"><span class="php-tag">$numeros</span> = range(1, 5); 
+// Resultado: [1, 2, 3, 4, 5]
+<span class="php-tag">$letras</span> = range('a', 'd'); 
+// Resultado: ['a', 'b', 'c', 'd']</div>
+                </div>
+
+                <div class="method creation">
+                    <div class="method-name">array_fill()</div>
+                    <div class="method-description">Llenar array con valor específico</div>
+                    <div class="array-display">-</div>
+                    <div class="method-example"><span class="php-tag">$array</span> = array_fill(0, 3, 'valor');
+// Resultado: [0 => 'valor', 1 => 'valor', 2 => 'valor']</div>
+                </div>
+
+                <div class="method creation">
+                    <div class="method-name">array_combine()</div>
+                    <div class="method-description">Combinar dos arrays en uno asociativo</div>
+                    <div class="array-display"><span class="php-tag">$claves</span> = ['a', 'b', 'c'];
+<span class="php-tag">$valores</span> = [1, 2, 3];</div>
+                    <div class="method-example"><span class="php-tag">$resultado</span> = array_combine($claves, $valores);
+// Resultado: ['a' => 1, 'b' => 2, 'c' => 3]</div>
+                </div>
+            </div>
+
+            <!-- Modificación de Arrays -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔧</div>
+                    <h2>Modificación</h2>
+                </div>
+                
+                <div class="method modification">
+                    <div class="method-name">array_push()</div>
+                    <div class="method-description">Agregar elementos al final</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3];</div>
+                    <div class="method-example">array_push($array, 4, 5);
+// Resultado: [1, 2, 3, 4, 5]</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">array_pop()</div>
+                    <div class="method-description">Eliminar último elemento</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3];</div>
+                    <div class="method-example"><span class="php-tag">$ultimo</span> = array_pop($array);
+// $ultimo = 3, $array = [1, 2]</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">array_shift()</div>
+                    <div class="method-description">Eliminar primer elemento</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3];</div>
+                    <div class="method-example"><span class="php-tag">$primero</span> = array_shift($array);
+// $primero = 1, $array = [2, 3]</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">array_unshift()</div>
+                    <div class="method-description">Agregar elementos al inicio</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [2, 3];</div>
+                    <div class="method-example">array_unshift($array, 0, 1);
+// Resultado: [0, 1, 2, 3]</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">array_splice()</div>
+                    <div class="method-description">Eliminar y reemplazar elementos</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3, 4, 5];</div>
+                    <div class="method-example">array_splice($array, 1, 2, ['a', 'b']);
+// Resultado: [1, 'a', 'b', 4, 5]</div>
+                </div>
+            </div>
+
+            <!-- Búsqueda y Filtrado -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔍</div>
+                    <h2>Búsqueda y Filtrado</h2>
+                </div>
+                
+                <div class="method search">
+                    <div class="method-name">in_array()</div>
+                    <div class="method-description">Verificar si valor existe en array</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3, 4, 5];</div>
+                    <div class="method-example">in_array(3, $array); // true
+in_array(10, $array); // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">array_search()</div>
+                    <div class="method-description">Buscar valor y devolver clave</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['a' => 1, 'b' => 2, 'c' => 3];</div>
+                    <div class="method-example">array_search(2, $array); // 'b'
+array_search(5, $array); // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">array_filter()</div>
+                    <div class="method-description">Filtrar elementos con callback</div>
+                    <div class="array-display"><span class="php-tag">$numeros</span> = [1, 2, 3, 4, 5, 6];</div>
+                    <div class="method-example"><span class="php-tag">$pares</span> = array_filter($numeros, function($n) {
+    return $n % 2 == 0;
+});
+// Resultado: [2, 4, 6]</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">array_keys()</div>
+                    <div class="method-description">Obtener todas las claves</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['a' => 1, 'b' => 2, 'c' => 3];</div>
+                    <div class="method-example">array_keys($array); 
+// Resultado: ['a', 'b', 'c']</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">array_values()</div>
+                    <div class="method-description">Obtener todos los valores</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['a' => 1, 'b' => 2, 'c' => 3];</div>
+                    <div class="method-example">array_values($array); 
+// Resultado: [1, 2, 3]</div>
+                </div>
+            </div>
+
+            <!-- Iteración y Transformación -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔄</div>
+                    <h2>Iteración y Transformación</h2>
+                </div>
+                
+                <div class="method iteration">
+                    <div class="method-name">array_map()</div>
+                    <div class="method-description">Aplicar función a cada elemento</div>
+                    <div class="array-display"><span class="php-tag">$numeros</span> = [1, 2, 3, 4];</div>
+                    <div class="method-example"><span class="php-tag">$duplicados</span> = array_map(function($n) {
+    return $n * 2;
+}, $numeros);
+// Resultado: [2, 4, 6, 8]</div>
+                </div>
+
+                <div class="method iteration">
+                    <div class="method-name">array_walk()</div>
+                    <div class="method-description">Iterar sobre elementos (modifica original)</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['a' => 1, 'b' => 2, 'c' => 3];</div>
+                    <div class="method-example">array_walk($array, function(&$valor, $clave) {
+    $valor = $clave . ':' . $valor;
+});
+// Resultado: ['a' => 'a:1', 'b' => 'b:2', 'c' => 'c:3']</div>
+                </div>
+
+                <div class="method iteration">
+                    <div class="method-name">array_reduce()</div>
+                    <div class="method-description">Reducir array a un solo valor</div>
+                    <div class="array-display"><span class="php-tag">$numeros</span> = [1, 2, 3, 4, 5];</div>
+                    <div class="method-example"><span class="php-tag">$suma</span> = array_reduce($numeros, function($acum, $num) {
+    return $acum + $num;
+}, 0);
+// Resultado: 15</div>
+                </div>
+
+                <div class="method iteration">
+                    <div class="method-name">foreach</div>
+                    <div class="method-description">Bucle específico para arrays</div>
+                    <div class="array-display"><span class="php-tag">$usuarios</span> = ['Ana', 'Juan', 'Maria'];</div>
+                    <div class="method-example">foreach ($usuarios as $usuario) {
+    echo "Usuario: $usuario\n";
+}
+// Resultado: Usuario: Ana, Usuario: Juan, Usuario: Maria</div>
+                </div>
+            </div>
+
+            <!-- Ordenamiento -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">📊</div>
+                    <h2>Ordenamiento</h2>
+                </div>
+                
+                <div class="method sorting">
+                    <div class="method-name">sort()</div>
+                    <div class="method-description">Ordenar valores (ascendente)</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [3, 1, 4, 2];</div>
+                    <div class="method-example">sort($array);
+// Resultado: [1, 2, 3, 4]</div>
+                </div>
+
+                <div class="method sorting">
+                    <div class="method-name">rsort()</div>
+                    <div class="method-description">Ordenar valores (descendente)</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [3, 1, 4, 2];</div>
+                    <div class="method-example">rsort($array);
+// Resultado: [4, 3, 2, 1]</div>
+                </div>
+
+                <div class="method sorting">
+                    <div class="method-name">asort()</div>
+                    <div class="method-description">Ordenar manteniendo claves</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['b' => 2, 'a' => 1, 'c' => 3];</div>
+                    <div class="method-example">asort($array);
+// Resultado: ['a' => 1, 'b' => 2, 'c' => 3]</div>
+                </div>
+
+                <div class="method sorting">
+                    <div class="method-name">ksort()</div>
+                    <div class="method-description">Ordenar por claves</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['z' => 1, 'a' => 2, 'm' => 3];</div>
+                    <div class="method-example">ksort($array);
+// Resultado: ['a' => 2, 'm' => 3, 'z' => 1]</div>
+                </div>
+
+                <div class="method sorting">
+                    <div class="method-name">usort()</div>
+                    <div class="method-description">Ordenar con función personalizada</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [5, 2, 8, 1];</div>
+                    <div class="method-example">usort($array, function($a, $b) {
+    return $a - $b;
+});
+// Resultado: [1, 2, 5, 8]</div>
+                </div>
+            </div>
+
+            <!-- Utilidades y Combinación -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🛠️</div>
+                    <h2>Utilidades y Combinación</h2>
+                </div>
+                
+                <div class="method utility">
+                    <div class="method-name">array_merge()</div>
+                    <div class="method-description">Combinar arrays</div>
+                    <div class="array-display"><span class="php-tag">$array1</span> = [1, 2]; <span class="php-tag">$array2</span> = [3, 4];</div>
+                    <div class="method-example"><span class="php-tag">$combinado</span> = array_merge($array1, $array2);
+// Resultado: [1, 2, 3, 4]</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">array_slice()</div>
+                    <div class="method-description">Extraer parte del array</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3, 4, 5];</div>
+                    <div class="method-example"><span class="php-tag">$parte</span> = array_slice($array, 1, 3);
+// Resultado: [2, 3, 4]</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">array_chunk()</div>
+                    <div class="method-description">Dividir array en fragmentos</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3, 4, 5, 6];</div>
+                    <div class="method-example"><span class="php-tag">$trozos</span> = array_chunk($array, 2);
+// Resultado: [[1, 2], [3, 4], [5, 6]]</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">array_unique()</div>
+                    <div class="method-description">Eliminar valores duplicados</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 2, 3, 3, 3];</div>
+                    <div class="method-example"><span class="php-tag">$unicos</span> = array_unique($array);
+// Resultado: [1, 2, 3]</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">count()</div>
+                    <div class="method-description">Contar elementos</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = [1, 2, 3, 4, 5];</div>
+                    <div class="method-example">count($array); // 5</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">implode()</div>
+                    <div class="method-description">Unir elementos en string</div>
+                    <div class="array-display"><span class="php-tag">$array</span> = ['Hola', 'mundo', 'PHP'];</div>
+                    <div class="method-example">implode(' ', $array); 
+// Resultado: "Hola mundo PHP"</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">explode()</div>
+                    <div class="method-description">Dividir string en array</div>
+                    <div class="array-display"><span class="php-tag">$texto</span> = "manzana,naranja,plátano";</div>
+                    <div class="method-example">explode(',', $texto);
+// Resultado: ['manzana', 'naranja', 'plátano']</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 Guía completa de arrays en PHP - Funciones esenciales para desarrollo web</p>
+        </footer>
+    </div>
+</body>
+</html>

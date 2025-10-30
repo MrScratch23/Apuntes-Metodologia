@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid - Definiciones Claras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 .icon {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
+        }
+
+        .description {
+            color: #5d6d7e;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin: 20px 0;
+            overflow-x: auto;
+            line-height: 1.8;
+            border: 1px solid #34495e;
+        }
+
+        .property {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .value {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .comment {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .selector {
+            color: #f39c12;
+        }
+
+        /* Ejemplos visuales */
+        .example-container {
+            display: grid;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 25px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .grid-item {
+            background: #3498db;
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Grid Areas Example */
+        .areas-example {
+            display: grid;
+            grid-template-areas: 
+                "header header header"
+                "sidebar content content"
+                "footer footer footer";
+            gap: 15px;
+            height: 300px;
+            margin: 25px 0;
+        }
+
+        .area-header { 
+            grid-area: header; 
+            background: #e74c3c; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .area-sidebar { 
+            grid-area: sidebar; 
+            background: #3498db; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .area-content { 
+            grid-area: content; 
+            background: #2ecc71; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .area-footer { 
+            grid-area: footer; 
+            background: #f39c12; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* Alignment Example */
+        .alignment-example {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            grid-template-rows: repeat(2, 100px);
+            gap: 15px;
+            height: 250px;
+            align-items: center;
+            justify-content: center;
+            background: #34495e;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .align-item {
+            background: #9b59b6;
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .code-block {
+                font-size: 0.9rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📐 CSS Grid - Definiciones Claras</h1>
+            <p class="subtitle">Separación visual para mejor comprensión</p>
+        </header>
+
+        <!-- Definición de Áreas -->
+        <div class="section">
+            <h2>
+                <span class="icon">🗺️</span>
+                Definición de Áreas
+            </h2>
+            
+            <div class="description">
+                Crea layouts semánticos con nombres de áreas para un código más legible y mantenible.
+            </div>
+
+            <h3>Contenedor Principal</h3>
+            <div class="code-block">
+<span class="selector">.container</span> {
+    <span class="property">display</span>: <span class="value">grid</span>;
+    <span class="property">grid-template-areas</span>: 
+        <span class="value">"header header header"</span>
+        <span class="value">"sidebar content content"</span>
+        <span class="value">"footer footer footer"</span>;
+    <span class="property">gap</span>: <span class="value">15px</span>;
+    <span class="property">min-height</span>: <span class="value">100vh</span>;
+}
+            </div>
+
+            <h3>Asignación de Áreas a Elementos</h3>
+            <div class="code-block">
+<span class="comment">/* Cada elemento hijo se asigna a un área específica */</span>
+<br>
+<span class="selector">.header</span> {
+    <span class="property">grid-area</span>: <span class="value">header</span>;
+}
+
+<span class="selector">.sidebar</span> {
+    <span class="property">grid-area</span>: <span class="value">sidebar</span>;
+}
+
+<span class="selector">.content</span> {
+    <span class="property">grid-area</span>: <span class="value">content</span>;
+}
+
+<span class="selector">.footer</span> {
+    <span class="property">grid-area</span>: <span class="value">footer</span>;
+}
+            </div>
+
+            <div class="note">
+                💡 <strong>Tip:</strong> Los nombres de áreas pueden ser cualquier palabra descriptiva que represente la sección de tu layout.
+            </div>
+
+            <h3>Ejemplo Visual</h3>
+            <div class="areas-example">
+                <div class="area-header">HEADER</div>
+                <div class="area-sidebar">SIDEBAR</div>
+                <div class="area-content">CONTENT</div>
+                <div class="area-footer">FOOTER</div>
+            </div>
+        </div>
+
+        <!-- Alineación del Contenedor -->
+        <div class="section">
+            <h2>
+                <span class="icon">⚖️</span>
+                Alineación del Contenedor
+            </h2>
+            
+            <div class="description">
+                Controla cómo se distribuye el espacio sobrante alrededor de los elementos del grid.
+            </div>
+
+            <h3>Alineación Horizontal (Eje Principal)</h3>
+            <div class="code-block">
+<span class="selector">.container</span> {
+    <span class="property">justify-content</span>: <span class="value">start</span>;        <span class="comment">/* Alinea a la izquierda */</span>
+    <span class="property">justify-content</span>: <span class="value">end</span>;          <span class="comment">/* Alinea a la derecha */</span>
+    <span class="property">justify-content</span>: <span class="value">center</span>;       <span class="comment">/* Centra horizontalmente */</span>
+    <span class="property">justify-content</span>: <span class="value">stretch</span>;      <span class="comment">/* Estira para llenar el espacio */</span>
+    <span class="property">justify-content</span>: <span class="value">space-around</span>; <span class="comment">/* Espacio alrededor de los items */</span>
+    <span class="property">justify-content</span>: <span class="value">space-between</span>; <span class="comment">/* Espacio entre los items */</span>
+    <span class="property">justify-content</span>: <span class="value">space-evenly</span>; <span class="comment">/* Espacio uniforme alrededor */</span>
+}
+            </div>
+
+            <h3>Alineación Vertical (Eje Cruzado)</h3>
+            <div class="code-block">
+<span class="selector">.container</span> {
+    <span class="property">align-content</span>: <span class="value">start</span>;        <span class="comment">/* Alinea arriba */</span>
+    <span class="property">align-content</span>: <span class="value">end</span>;          <span class="comment">/* Alinea abajo */</span>
+    <span class="property">align-content</span>: <span class="value">center</span>;       <span class="comment">/* Centra verticalmente */</span>
+    <span class="property">align-content</span>: <span class="value">stretch</span>;      <span class="comment">/* Estira para llenar el espacio */</span>
+    <span class="property">align-content</span>: <span class="value">space-around</span>; <span class="comment">/* Espacio alrededor de los items */</span>
+    <span class="property">align-content</span>: <span class="value">space-between</span>; <span class="comment">/* Espacio entre los items */</span>
+    <span class="property">align-content</span>: <span class="value">space-evenly</span>; <span class="comment">/* Espacio uniforme alrededor */</span>
+}
+            </div>
+
+            <div class="note">
+                💡 <strong>Nota:</strong> Estas propiedades funcionan cuando el grid es más pequeño que su contenedor y hay espacio sobrante para distribuir.
+            </div>
+        </div>
+
+        <!-- Alineación de Items -->
+        <div class="section">
+            <h2>
+                <span class="icon">🎯</span>
+                Alineación de Items
+            </h2>
+            
+            <div class="description">
+                Controla cómo se alinean los elementos individuales dentro de sus celdas del grid.
+            </div>
+
+            <h3>Alineación Global de Todos los Items</h3>
+            <div class="code-block">
+<span class="selector">.container</span> {
+    <span class="comment">/* Alineación horizontal de todos los items */</span>
+    <span class="property">justify-items</span>: <span class="value">start</span>;    <span class="comment">/* Alinea a la izquierda de su celda */</span>
+    <span class="property">justify-items</span>: <span class="value">end</span>;      <span class="comment">/* Alinea a la derecha de su celda */</span>
+    <span class="property">justify-items</span>: <span class="value">center</span>;   <span class="comment">/* Centra horizontalmente en su celda */</span>
+    <span class="property">justify-items</span>: <span class="value">stretch</span>;  <span class="comment">/* Estira para llenar la celda (default) */</span>
+    <br>
+    <span class="comment">/* Alineación vertical de todos los items */</span>
+    <span class="property">align-items</span>: <span class="value">start</span>;      <span class="comment">/* Alinea arriba de su celda */</span>
+    <span class="property">align-items</span>: <span class="value">end</span>;        <span class="comment">/* Alinea abajo de su celda */</span>
+    <span class="property">align-items</span>: <span class="value">center</span>;     <span class="comment">/* Centra verticalmente en su celda */</span>
+    <span class="property">align-items</span>: <span class="value">stretch</span>;    <span class="comment">/* Estira para llenar la celda (default) */</span>
+}
+            </div>
+
+            <h3>Alineación Individual de Items</h3>
+            <div class="code-block">
+<span class="selector">.item</span> {
+    <span class="comment">/* Alineación horizontal individual */</span>
+    <span class="property">justify-self</span>: <span class="value">start</span>;    <span class="comment">/* Alinea este item a la izquierda */</span>
+    <span class="property">justify-self</span>: <span class="value">end</span>;      <span class="comment">/* Alinea este item a la derecha */</span>
+    <span class="property">justify-self</span>: <span class="value">center</span>;   <span class="comment">/* Centra este item horizontalmente */</span>
+    <span class="property">justify-self</span>: <span class="value">stretch</span>;  <span class="comment">/* Estira este item */</span>
+    <br>
+    <span class="comment">/* Alineación vertical individual */</span>
+    <span class="property">align-self</span>: <span class="value">start</span>;      <span class="comment">/* Alinea este item arriba */</span>
+    <span class="property">align-self</span>: <span class="value">end</span>;        <span class="comment">/* Alinea este item abajo */</span>
+    <span class="property">align-self</span>: <span class="value">center</span>;     <span class="comment">/* Centra este item verticalmente */</span>
+    <span class="property">align-self</span>: <span class="value">stretch</span>;    <span class="comment">/* Estira este item */</span>
+}
+            </div>
+
+            <div class="note">
+                💡 <strong>Diferencia clave:</strong> 
+                <strong>justify-items/align-items</strong> se aplican al contenedor y afectan a TODOS los items.
+                <strong>justify-self/align-self</strong> se aplican a items individuales para sobrescribir la alineación global.
+            </div>
+
+            <h3>Ejemplo Visual de Alineación</h3>
+            <div class="alignment-example">
+                <div class="align-item">Centrado</div>
+                <div class="align-item">Centrado</div>
+                <div class="align-item">Centrado</div>
+                <div class="align-item">Centrado</div>
+                <div class="align-item">Centrado</div>
+                <div class="align-item">Centrado</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 CSS Grid - Layouts modernos con separación clara de conceptos</p>
+        </footer>
+    </div>
+</body>
+</html>

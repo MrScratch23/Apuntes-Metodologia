@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métodos de Strings en JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .method {
+            background: #f8f9fa;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .method-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .method-description {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .method-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            margin-top: 5px;
+        }
+
+        .case { border-left-color: #e74c3c; }
+        .search { border-left-color: #9b59b6; }
+        .modification { border-left-color: #f39c12; }
+        .validation { border-left-color: #3498db; }
+        .utility { border-left-color: #1abc9c; }
+        .modern { border-left-color: #e67e22; }
+
+        .string-display {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .js-tag {
+            color: #f7df1e;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔤 Strings en JavaScript</h1>
+            <p class="subtitle">Guía completa de métodos para manipulación de texto</p>
+        </header>
+
+        <div class="grid">
+            <!-- Conversión de Mayúsculas/Minúsculas -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔄</div>
+                    <h2>Conversión de Case</h2>
+                </div>
+                
+                <div class="method case">
+                    <div class="method-name">toUpperCase()</div>
+                    <div class="method-description">Convertir a MAYÚSCULAS</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Hola Mundo";</div>
+                    <div class="method-example">texto.toUpperCase(); // "HOLA MUNDO"</div>
+                </div>
+
+                <div class="method case">
+                    <div class="method-name">toLowerCase()</div>
+                    <div class="method-description">Convertir a minúsculas</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Hola Mundo";</div>
+                    <div class="method-example">texto.toLowerCase(); // "hola mundo"</div>
+                </div>
+
+                <div class="method case">
+                    <div class="method-name">toString()</div>
+                    <div class="method-description">Convertir a string</div>
+                    <div class="string-display"><span class="js-tag">let numero</span> = 123;</div>
+                    <div class="method-example">numero.toString(); // "123"</div>
+                </div>
+            </div>
+
+            <!-- Búsqueda en Strings -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔍</div>
+                    <h2>Búsqueda en Strings</h2>
+                </div>
+                
+                <div class="method search">
+                    <div class="method-name">indexOf()</div>
+                    <div class="method-description">Encontrar posición de substring</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Bienvenido a JavaScript";</div>
+                    <div class="method-example">texto.indexOf("Java");   // 13
+texto.indexOf("Python"); // -1</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">includes()</div>
+                    <div class="method-description">Verificar si contiene substring</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Aprendiendo JavaScript";</div>
+                    <div class="method-example">texto.includes("Java");  // true
+texto.includes("PHP");   // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">startsWith()</div>
+                    <div class="method-description">Verificar si comienza con substring</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Hola Mundo";</div>
+                    <div class="method-example">texto.startsWith("Hola");  // true
+texto.startsWith("Mundo"); // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">endsWith()</div>
+                    <div class="method-description">Verificar si termina con substring</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "archivo.js";</div>
+                    <div class="method-example">texto.endsWith(".js");  // true
+texto.endsWith(".php");   // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">search()</div>
+                    <div class="method-description">Buscar con expresión regular</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "JavaScript es genial";</div>
+                    <div class="method-example">texto.search(/Java/);  // 0
+texto.search(/php/i);   // -1</div>
+                </div>
+            </div>
+
+            <!-- Modificación de Strings -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">✂️</div>
+                    <h2>Modificación de Strings</h2>
+                </div>
+                
+                <div class="method modification">
+                    <div class="method-name">trim()</div>
+                    <div class="method-description">Eliminar espacios en blanco al inicio y final</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "   hola mundo   ";</div>
+                    <div class="method-example">texto.trim(); // "hola mundo"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">replace()</div>
+                    <div class="method-description">Reemplazar texto</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Me gusta Java";</div>
+                    <div class="method-example">texto.replace("Java", "JavaScript"); 
+// "Me gusta JavaScript"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">slice()</div>
+                    <div class="method-description">Extraer parte del string</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "JavaScript";</div>
+                    <div class="method-example">texto.slice(0, 4);  // "Java"
+texto.slice(4);     // "Script"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">substring()</div>
+                    <div class="method-description">Similar a slice() pero no acepta negativos</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "JavaScript";</div>
+                    <div class="method-example">texto.substring(0, 4); // "Java"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">repeat()</div>
+                    <div class="method-description">Repetir string</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Hola";</div>
+                    <div class="method-example">texto.repeat(3); // "HolaHolaHola"</div>
+                </div>
+            </div>
+
+            <!-- Validación y Comprobación -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">✅</div>
+                    <h2>Validación y Comprobación</h2>
+                </div>
+                
+                <div class="method validation">
+                    <div class="method-name">isNaN()</div>
+                    <div class="method-description">Verificar si NO es un número</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">isNaN("123");    // false
+isNaN("abc");    // true  
+isNaN("123abc"); // true</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">typeof</div>
+                    <div class="method-description">Verificar tipo de dato</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">typeof "hola";    // "string"
+typeof 123;       // "number"
+typeof true;      // "boolean"</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">length</div>
+                    <div class="method-description">Obtener longitud del string</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Hola";</div>
+                    <div class="method-example">texto.length; // 4</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">String()</div>
+                    <div class="method-description">Convertir a string explícitamente</div>
+                    <div class="string-display"><span class="js-tag">let numero</span> = 456;</div>
+                    <div class="method-example">String(numero); // "456"</div>
+                </div>
+            </div>
+
+            <!-- Utilidades y Conversión -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🛠️</div>
+                    <h2>Utilidades y Conversión</h2>
+                </div>
+                
+                <div class="method utility">
+                    <div class="method-name">split()</div>
+                    <div class="method-description">Dividir string en array</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "manzana,naranja,plátano";</div>
+                    <div class="method-example">texto.split(",");
+// ["manzana", "naranja", "plátano"]</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">concat()</div>
+                    <div class="method-description">Concatenar strings</div>
+                    <div class="string-display"><span class="js-tag">let str1</span> = "Hola"; <span class="js-tag">let str2</span> = "Mundo";</div>
+                    <div class="method-example">str1.concat(" ", str2); 
+// "Hola Mundo"</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">charAt()</div>
+                    <div class="method-description">Obtener carácter en posición específica</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "JavaScript";</div>
+                    <div class="method-example">texto.charAt(0); // "J"
+texto.charAt(4); // "S"</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">charCodeAt()</div>
+                    <div class="method-description">Obtener código Unicode del carácter</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "A";</div>
+                    <div class="method-example">texto.charCodeAt(0); // 65</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">padStart()</div>
+                    <div class="method-description">Rellenar al inicio</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "5";</div>
+                    <div class="method-example">texto.padStart(3, "0"); // "005"</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">padEnd()</div>
+                    <div class="method-description">Rellenar al final</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "Hola";</div>
+                    <div class="method-example">texto.padEnd(10, "-"); // "Hola------"</div>
+                </div>
+            </div>
+
+            <!-- Métodos Modernos (ES6+) -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">⚡</div>
+                    <h2>Métodos Modernos (ES6+)</h2>
+                </div>
+                
+                <div class="method modern">
+                    <div class="method-name">Template Literals</div>
+                    <div class="method-description">Strings con variables y multi-línea</div>
+                    <div class="string-display"><span class="js-tag">let nombre</span> = "Ana"; <span class="js-tag">let edad</span> = 25;</div>
+                    <div class="method-example">`Hola ${nombre}, tienes ${edad} años`;
+// "Hola Ana, tienes 25 años"</div>
+                </div>
+
+                <div class="method modern">
+                    <div class="method-name">String.raw()</div>
+                    <div class="method-description">String raw sin escapar caracteres</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">String.raw`Hola\nMundo`; // "Hola\\nMundo" (no salto de línea)</div>
+                </div>
+
+                <div class="method modern">
+                    <div class="method-name">match()</div>
+                    <div class="method-description">Buscar coincidencias con regex</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "El precio es $100";</div>
+                    <div class="method-example">texto.match(/\d+/); // ["100"]</div>
+                </div>
+
+                <div class="method modern">
+                    <div class="method-name">matchAll()</div>
+                    <div class="method-description">Todas las coincidencias con regex</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "a1 b2 c3";</div>
+                    <div class="method-example">[...texto.matchAll(/\d/g)]; 
+// [["1"], ["2"], ["3"]]</div>
+                </div>
+
+                <div class="method modern">
+                    <div class="method-name">codePointAt()</div>
+                    <div class="method-description">Código Unicode para caracteres UTF-16</div>
+                    <div class="string-display"><span class="js-tag">let texto</span> = "😀";</div>
+                    <div class="method-example">texto.codePointAt(0); // 128512</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 Guía completa de strings en JavaScript - Diferencias clave con PHP</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones de Strings y Validación en PHP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .method {
+            background: #f8f9fa;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .method-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .method-description {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .method-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            margin-top: 5px;
+        }
+
+        .validation { border-left-color: #e74c3c; }
+        .case { border-left-color: #9b59b6; }
+        .search { border-left-color: #f39c12; }
+        .modification { border-left-color: #3498db; }
+        .format { border-left-color: #1abc9c; }
+        .utility { border-left-color: #e67e22; }
+
+        .string-display {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .php-tag {
+            color: #8892BF;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔤 Strings y Validación en PHP</h1>
+            <p class="subtitle">Guía completa de funciones para manipulación y validación de texto</p>
+        </header>
+
+        <div class="grid">
+            <!-- Validación y Comprobación -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">✅</div>
+                    <h2>Validación y Comprobación</h2>
+                </div>
+                
+                <div class="method validation">
+                    <div class="method-name">is_numeric()</div>
+                    <div class="method-description">Verificar si variable es numérica</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">is_numeric("123");    // true
+is_numeric("12.3");   // true  
+is_numeric("abc");    // false
+is_numeric("123abc"); // false</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">is_string()</div>
+                    <div class="method-description">Verificar si variable es string</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">is_string("hola");    // true
+is_string(123);       // false
+is_string(true);      // false</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">empty()</div>
+                    <div class="method-description">Verificar si variable está vacía</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">empty("");      // true
+empty("hola");   // false
+empty(0);        // true
+empty(null);     // true</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">isset()</div>
+                    <div class="method-description">Verificar si variable existe y no es null</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example"><span class="php-tag">$var</span> = "valor";
+isset($var);     // true
+isset($noExiste); // false</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">ctype_digit()</div>
+                    <div class="method-description">Verificar si todos los caracteres son dígitos</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">ctype_digit("123");   // true
+ctype_digit("12.3");  // false
+ctype_digit("123a");  // false</div>
+                </div>
+
+                <div class="method validation">
+                    <div class="method-name">filter_var()</div>
+                    <div class="method-description">Filtrar y validar variable</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">filter_var("test@email.com", FILTER_VALIDATE_EMAIL); // "test@email.com"
+filter_var("invalid", FILTER_VALIDATE_EMAIL); // false</div>
+                </div>
+            </div>
+
+            <!-- Conversión de Mayúsculas/Minúsculas -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔄</div>
+                    <h2>Conversión de Case</h2>
+                </div>
+                
+                <div class="method case">
+                    <div class="method-name">strtoupper()</div>
+                    <div class="method-description">Convertir a MAYÚSCULAS</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola Mundo";</div>
+                    <div class="method-example">strtoupper($texto); // "HOLA MUNDO"</div>
+                </div>
+
+                <div class="method case">
+                    <div class="method-name">strtolower()</div>
+                    <div class="method-description">Convertir a minúsculas</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola Mundo";</div>
+                    <div class="method-example">strtolower($texto); // "hola mundo"</div>
+                </div>
+
+                <div class="method case">
+                    <div class="method-name">ucfirst()</div>
+                    <div class="method-description">Primera letra en mayúscula</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "hola mundo";</div>
+                    <div class="method-example">ucfirst($texto); // "Hola mundo"</div>
+                </div>
+
+                <div class="method case">
+                    <div class="method-name">ucwords()</div>
+                    <div class="method-description">Primera letra de cada palabra en mayúscula</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "hola mundo php";</div>
+                    <div class="method-example">ucwords($texto); // "Hola Mundo Php"</div>
+                </div>
+
+                <div class="method case">
+                    <div class="method-name">mb_strtoupper()</div>
+                    <div class="method-description">strtoupper para caracteres multibyte (UTF-8)</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "café ñandú";</div>
+                    <div class="method-example">mb_strtoupper($texto, 'UTF-8'); // "CAFÉ ÑANDÚ"</div>
+                </div>
+            </div>
+
+            <!-- Búsqueda en Strings -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🔍</div>
+                    <h2>Búsqueda en Strings</h2>
+                </div>
+                
+                <div class="method search">
+                    <div class="method-name">strpos()</div>
+                    <div class="method-description">Encontrar posición de substring</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Bienvenido a PHP";</div>
+                    <div class="method-example">strpos($texto, "PHP");   // 13
+strpos($texto, "Java");   // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">str_contains()</div>
+                    <div class="method-description">Verificar si contiene substring (PHP 8+)</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Aprendiendo PHP";</div>
+                    <div class="method-example">str_contains($texto, "PHP");  // true
+str_contains($texto, "Java"); // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">str_starts_with()</div>
+                    <div class="method-description">Verificar si comienza con substring (PHP 8+)</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola Mundo";</div>
+                    <div class="method-example">str_starts_with($texto, "Hola");  // true
+str_starts_with($texto, "Mundo"); // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">str_ends_with()</div>
+                    <div class="method-description">Verificar si termina con substring (PHP 8+)</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "archivo.php";</div>
+                    <div class="method-example">str_ends_with($texto, ".php");  // true
+str_ends_with($texto, ".js");   // false</div>
+                </div>
+
+                <div class="method search">
+                    <div class="method-name">substr()</div>
+                    <div class="method-description">Extraer parte del string</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "JavaScript";</div>
+                    <div class="method-example">substr($texto, 0, 4);  // "Java"
+substr($texto, 4);     // "Script"</div>
+                </div>
+            </div>
+
+            <!-- Modificación de Strings -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">✂️</div>
+                    <h2>Modificación de Strings</h2>
+                </div>
+                
+                <div class="method modification">
+                    <div class="method-name">trim()</div>
+                    <div class="method-description">Eliminar espacios en blanco al inicio y final</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "   hola mundo   ";</div>
+                    <div class="method-example">trim($texto); // "hola mundo"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">str_replace()</div>
+                    <div class="method-description">Reemplazar texto</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Me gusta Java";</div>
+                    <div class="method-example">str_replace("Java", "PHP", $texto); 
+// "Me gusta PHP"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">strlen()</div>
+                    <div class="method-description">Obtener longitud del string</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola";</div>
+                    <div class="method-example">strlen($texto); // 4</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">substr_replace()</div>
+                    <div class="method-description">Reemplazar parte del string</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "ABCDEFG";</div>
+                    <div class="method-example">substr_replace($texto, "123", 2, 3); 
+// "AB123FG"</div>
+                </div>
+
+                <div class="method modification">
+                    <div class="method-name">str_repeat()</div>
+                    <div class="method-description">Repetir string</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola";</div>
+                    <div class="method-example">str_repeat($texto, 3); // "HolaHolaHola"</div>
+                </div>
+            </div>
+
+            <!-- Formateo y Output -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">📝</div>
+                    <h2>Formateo y Output</h2>
+                </div>
+                
+                <div class="method format">
+                    <div class="method-name">sprintf()</div>
+                    <div class="method-description">Formatear string con placeholders</div>
+                    <div class="string-display">-</div>
+                    <div class="method-example">sprintf("Hola %s, tienes %d años", "Ana", 25);
+// "Hola Ana, tienes 25 años"</div>
+                </div>
+
+                <div class="method format">
+                    <div class="method-name">number_format()</div>
+                    <div class="method-description">Formatear números</div>
+                    <div class="string-display"><span class="php-tag">$numero</span> = 1234.5678;</div>
+                    <div class="method-example">number_format($numero, 2, ',', '.'); 
+// "1.234,57"</div>
+                </div>
+
+                <div class="method format">
+                    <div class="method-name">htmlspecialchars()</div>
+                    <div class="method-description">Convertir caracteres especiales a entidades HTML</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "<script>alert('xss')</script>";</div>
+                    <div class="method-example">htmlspecialchars($texto);
+// "&lt;script&gt;alert('xss')&lt;/script&gt;"</div>
+                </div>
+
+                <div class="method format">
+                    <div class="method-name">nl2br()</div>
+                    <div class="method-description">Convertir saltos de línea a tags &lt;br&gt;</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Línea 1\nLínea 2";</div>
+                    <div class="method-example">nl2br($texto);
+// "Línea 1&lt;br&gt;Línea 2"</div>
+                </div>
+            </div>
+
+            <!-- Utilidades Adicionales -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="icon">🛠️</div>
+                    <h2>Utilidades Adicionales</h2>
+                </div>
+                
+                <div class="method utility">
+                    <div class="method-name">explode()</div>
+                    <div class="method-description">Dividir string en array</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "manzana,naranja,plátano";</div>
+                    <div class="method-example">explode(",", $texto);
+// ["manzana", "naranja", "plátano"]</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">implode() / join()</div>
+                    <div class="method-description">Unir array en string</div>
+                    <div class="string-display"><span class="php-tag">$array</span> = ["PHP", "es", "genial"];</div>
+                    <div class="method-example">implode(" ", $array); 
+// "PHP es genial"</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">str_shuffle()</div>
+                    <div class="method-description">Mezclar caracteres aleatoriamente</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "abcdef";</div>
+                    <div class="method-example">str_shuffle($texto); // "cbafed" (aleatorio)</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">str_pad()</div>
+                    <div class="method-description">Rellenar string a longitud específica</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola";</div>
+                    <div class="method-example">str_pad($texto, 10, "-", STR_PAD_BOTH);
+// "---Hola---"</div>
+                </div>
+
+                <div class="method utility">
+                    <div class="method-name">str_word_count()</div>
+                    <div class="method-description">Contar palabras en string</div>
+                    <div class="string-display"><span class="php-tag">$texto</span> = "Hola mundo PHP";</div>
+                    <div class="method-example">str_word_count($texto); // 3</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 Guía completa de strings y validación en PHP - Funciones esenciales para desarrollo web</p>
+        </footer>
+    </div>
+</body>
+</html>
